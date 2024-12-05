@@ -29,7 +29,7 @@ public class Context : DbContext
             modelBuilder.Entity<ExpensiveType>()
                 .HasMany(et => et.Expenses)
                 .WithOne(e => e.Type)
-                .HasForeignKey(e => e.Id);
+                .HasForeignKey(e => e.TypeId);
         });
         modelBuilder.Entity<Expenses>(entity =>
         {
@@ -37,7 +37,7 @@ public class Context : DbContext
             modelBuilder.Entity<Expenses>()
                 .HasMany(ev => ev.ExpensesValues)
                 .WithOne(v => v.Expenses)
-                .HasForeignKey(ev => ev.Id);
+                .HasForeignKey(ev => ev.ExpensesId);
         });
         modelBuilder.Entity<ExpensesValues>(entity =>
         {
@@ -50,7 +50,7 @@ public class Context : DbContext
             modelBuilder.Entity<RevenueType>()
                 .HasMany(rt => rt.Revenues)
                 .WithOne(r => r.Type)
-                .HasForeignKey(r => r.Id);
+                .HasForeignKey(r => r.TypeId);
         });
         modelBuilder.Entity<Revenue>(entity =>
         {
@@ -58,7 +58,7 @@ public class Context : DbContext
             modelBuilder.Entity<Revenue>()
                 .HasMany(rv => rv.RevenueValues)
                 .WithOne(r => r.Revenue)
-                .HasForeignKey(rv => rv.Id);
+                .HasForeignKey(rv => rv.RevenueId);
         });
         modelBuilder.Entity<RevenueValues>(entity =>
         {

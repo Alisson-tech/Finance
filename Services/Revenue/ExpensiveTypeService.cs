@@ -43,12 +43,12 @@ public class ExpensiveTypeService : IExpensiveTypeService
         return _mapper.Map<ExpensiveTypeDto>(createdEntity);
     }
 
-    public async Task<ExpensiveTypeDto> Update(ExpensiveTypeDto expensiveTypeDto)
+    public async Task<ExpensiveTypeDto> Update(int id, ExpensiveTypeDto expensiveTypeDto)
     {
-        var entity = await _repository.GetById(expensiveTypeDto.Id);
+        var entity = await _repository.GetById(id);
 
         if (entity == null)
-            throw new FinanceNotFoundException($"Entity with id {expensiveTypeDto.Id} not found.");
+            throw new FinanceNotFoundException($"Entity with id {id} not found.");
 
         entity.Name = expensiveTypeDto.Name;
         entity.Expenses = expensiveTypeDto.Expenses;

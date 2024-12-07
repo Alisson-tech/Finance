@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.Controllers;
 
-[Controller]
+[ApiController]
+[Route("api/[controller]")]
 public class ExpensiveTypeController : Controller
 {
     public readonly IExpensiveTypeService _expensiveTypeService;
@@ -44,18 +45,18 @@ public class ExpensiveTypeController : Controller
         }
 
         var createdExpensiveType = await _expensiveTypeService.Create(expensiveTypeDto);
-        return CreatedAtAction(nameof(GetById), new { id = createdExpensiveType.Id }, createdExpensiveType);
+        return CreatedAtAction(nameof(GetById), new { id = createdExpensiveType.Name }, createdExpensiveType);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update( [FromBody] ExpensiveTypeDto expensiveTypeDto)
+    public async Task<IActionResult> Update(int id, [FromBody] ExpensiveTypeDto expensiveTypeDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var updatedExpensiveType = await _expensiveTypeService.Update(expensiveTypeDto);
+        var updatedExpensiveType = await _expensiveTypeService.Update(id, expensiveTypeDto);
         return Ok(updatedExpensiveType);
     }
 }

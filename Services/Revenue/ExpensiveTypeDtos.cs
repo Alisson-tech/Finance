@@ -4,7 +4,6 @@ namespace Finance.Service.Revenue;
 
 public class ExpensiveTypeDto
 {
-    public int Id { get; set; }
     public required string Name { get; set; }
     public List<Expenses> Expenses { get; set; } = [];
 }

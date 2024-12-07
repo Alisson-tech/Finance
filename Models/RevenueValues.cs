@@ -2,8 +2,8 @@
 
 public class RevenueValues: BaseEntity
 {
-    public Guid Id { get; set; }
-    public Guid RevenueId { get; set; }
+    public int Id { get; set; }
+    public int RevenueId { get; set; }
     public decimal Value { get; set; }
     public bool Received { get; set; }
     public required Revenue Revenue { get; set; }

@@ -26,6 +26,7 @@ public class Context : DbContext
         modelBuilder.Entity<ExpensiveType>(entity =>
         {
             entity.HasKey(et => et.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<ExpensiveType>()
                 .HasMany(et => et.Expenses)
                 .WithOne(e => e.Type)
@@ -34,6 +35,7 @@ public class Context : DbContext
         modelBuilder.Entity<Expenses>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Expenses>()
                 .HasMany(ev => ev.ExpensesValues)
                 .WithOne(v => v.Expenses)
@@ -42,11 +44,13 @@ public class Context : DbContext
         modelBuilder.Entity<ExpensesValues>(entity =>
         {
             entity.HasKey(ev => ev.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<RevenueType>(entity =>
         {
             entity.HasKey(rt => rt.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<RevenueType>()
                 .HasMany(rt => rt.Revenues)
                 .WithOne(r => r.Type)
@@ -55,6 +59,7 @@ public class Context : DbContext
         modelBuilder.Entity<Revenue>(entity =>
         {
             entity.HasKey(r => r.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Revenue>()
                 .HasMany(rv => rv.RevenueValues)
                 .WithOne(r => r.Revenue)
@@ -63,6 +68,7 @@ public class Context : DbContext
         modelBuilder.Entity<RevenueValues>(entity =>
         {
             entity.HasKey(rv => rv.Id);
+            entity.Property(rt => rt.Id).ValueGeneratedOnAdd();
         });
 
     }

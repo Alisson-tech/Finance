@@ -2,7 +2,7 @@
 
 public class RevenueType : BaseEntity
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public required string Name { get; set; }
     public List<Revenue> Revenues { get; set; } = [];
 }

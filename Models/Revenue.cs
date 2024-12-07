@@ -2,8 +2,8 @@
 
 public class Revenue : BaseEntity
 {
-    public Guid Id { get; set; }
-    public Guid TypeId { get; set; }
+    public int Id { get; set; }
+    public int TypeId { get; set; }
     public required string Name { get; set; }
     public required RevenueType Type { get; set; }
     public List<RevenueValues> RevenueValues { get; set; } = [];

@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Finance.Models;
 
-namespace Finance.Service.Revenue
+namespace Finance.Service.Revenue;
+
+public class ExpensiveMappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public ExpensiveMappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<ExpensiveType, ExpensiveTypeDto>().ReverseMap();
-        }
+        CreateMap<ExpensiveType, ExpensiveTypeDto>().ReverseMap();
     }
 }

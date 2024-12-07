@@ -1,4 +1,10 @@
-﻿namespace Finance;
+﻿using Finance.Data;
+using Finance.Service.Interfaces;
+using Finance.Service.Repositories;
+using Finance.Service.Revenue;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Finance;
 
 public class Startup
 {
@@ -55,15 +61,13 @@ public class Startup
         //    };
         //});
 
-        // services.AddDbContext<DataContext>();
-        //services.AddScoped<>();
+        services.AddDbContext<Context>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IExpensiveTypeService, ExpensiveTypeService>();
 
-
-        //services.AddScoped(provider => new AutoMapper.MapperConfiguration(cfg =>
-        //{
-        //    cfg.AddProfile(new UserMappingProfile());
-        //    cfg.AddProfile(new ContactInformationMappingProfile());
-
-        //}).CreateMapper());
+        services.AddScoped(provider => new AutoMapper.MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile(new ExpensiveMappingProfile());
+        }).CreateMapper());
     }
 }

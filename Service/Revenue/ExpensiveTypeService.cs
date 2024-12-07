@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Finance.Exceptions;
 using Finance.Models;
 using Finance.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,12 @@ public class ExpensiveTypeService : IExpensiveTypeService
 
     public async Task<ExpensiveTypeDto> GetById(int id)
     {
-        return _mapper.Map<ExpensiveTypeDto>(await _repository.GetById(id));
+        var entity = await _repository.GetById(id);
+
+        if (entity == null)
+            throw new FinanceNotFoundException($"Entity with id {id} not found.");
+
+        return _mapper.Map<ExpensiveTypeDto>(entity);
     }
 
     public async Task<List<ExpensiveTypeDto>> GetAll()
@@ -40,6 +46,10 @@ public class ExpensiveTypeService : IExpensiveTypeService
     public async Task<ExpensiveTypeDto> Update(ExpensiveTypeDto expensiveTypeDto)
     {
         var entity = await _repository.GetById(expensiveTypeDto.Id);
+
+        if (entity == null)
+            throw new FinanceNotFoundException($"Entity with id {expensiveTypeDto.Id} not found.");
+
         entity.Name = expensiveTypeDto.Name;
         entity.Expenses = expensiveTypeDto.Expenses;
 

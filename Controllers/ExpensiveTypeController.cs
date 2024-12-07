@@ -1,4 +1,5 @@
-﻿using Finance.Service.Revenue;
+﻿using Finance.Exceptions;
+using Finance.Service.Revenue;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.Controllers;
@@ -16,14 +17,15 @@ public class ExpensiveTypeController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var expensiveType = await _expensiveTypeService.GetById(id);
-
-        if (expensiveType == null)
+        try 
         {
-            return NotFound();
+            var expensiveType = await _expensiveTypeService.GetById(id);
+            return Ok(expensiveType);
         }
-
-        return Ok(expensiveType);
+        catch (FinanceNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpGet]

@@ -1,4 +1,5 @@
 ﻿using Finance.Data;
+using Finance.Exceptions;
 using Finance.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,14 +19,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return _context.Set<T>().AsQueryable();
     }
 
-    public async Task<T> GetById(int id)
+    public async Task<T?> GetById(int id)
     {
-        var entity = await _context.Set<T>().FindAsync(id);
-
-        if (entity == null)
-            throw new KeyNotFoundException($"Entity with id {id} not found.");
-
-        return entity;
+        return await _context.Set<T>().FindAsync(id);
     }
 
     public async Task<T> Create(T entity)
